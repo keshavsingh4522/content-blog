@@ -34,3 +34,16 @@ kubectl get pods --all-namespaces
 ## iii. List all k8s objects from Cluster Control plane
 kubectl get all --all-namespaces
 ```
+
+## Create a static public IP for ingress controller
+
+```sh
+# Get the resource group name of the AKS cluster 
+az aks show --resource-group omkr-demo-23-03-2024 --name aks-demo-23-03-2024-cluster --query nodeResourceGroup -o tsv
+
+# TEMPLATE - Create a public IP address with the static allocation
+az network public-ip create --resource-group <REPLACE-OUTPUT-RG-FROM-PREVIOUS-COMMAND> --name myAKSPublicIPForIngress --sku Standard --allocation-method static --query publicIp.ipAddress -o tsv
+
+# REPLACE - Create Public IP: Replace Resource Group value
+az network public-ip create --resource-group MC_omkr-demo-23-03-2024_aks-demo-23-03-2024-cluster_eastus --name myAKSPublicIPForIngress --sku Standard --allocation-method static --query publicIp.ipAddress -o tsv
+```
