@@ -47,3 +47,20 @@ az network public-ip create --resource-group <REPLACE-OUTPUT-RG-FROM-PREVIOUS-CO
 # REPLACE - Create Public IP: Replace Resource Group value
 az network public-ip create --resource-group MC_omkr-demo-23-03-2024_aks-demo-23-03-2024-cluster_eastus --name myAKSPublicIPForIngress --sku Standard --allocation-method static --query publicIp.ipAddress -o tsv
 ```
+
+---
+
+> [168.62.182.241](http://168.62.182.241/)
+
+```sh
+# Create a namespace for your ingress resources
+kubectl create namespace ingress-basic
+
+helm install ingress-nginx ingress-nginx/ingress-nginx \
+    --namespace ingress-basic \
+    --set controller.replicaCount=2 \
+    --set controller.nodeSelector."kubernetes\.io/os"=linux \
+    --set defaultBackend.nodeSelector."kubernetes\.io/os"=linux \
+    --set controller.service.externalTrafficPolicy=Local \
+    --set controller.service.loadBalancerIP="168.62.182.241" 
+```
