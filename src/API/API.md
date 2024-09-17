@@ -5,7 +5,7 @@
 
 ## Types of API
 
-![Types of api](./Asset/API.drawio.png)
+![Types of api](./Assets/API.drawio.png)
 
 There are several types of APIs, commonly categorized by their scope and the protocols they use:
 
