@@ -92,6 +92,7 @@ public IActionResult About()
 
 > References:
 
+- [MSDIN](https://learn.microsoft.com/en-us/aspnet/core/mvc/controllers/filters)
 - [https://www.c-sharpcorner.com/article/working-with-filters-in-asp-net-core-mvc](https://www.c-sharpcorner.com/article/working-with-filters-in-asp-net-core-mvc/)
 
 ---
