@@ -223,3 +223,83 @@ Securing an API encompasses multiple layers of security, including authenticatio
 
 15. Automated Security Testing:
     - Implement automated security testing in your CI/CD pipeline to catch security issues early.
+
+## Stateless and Stateful
+
+### Stateless
+
+- In a stateless API, each request from a client must contain all the information necessary to understand and fulfill the request.
+- The server does not store any session information about the client between requests. This makes the API easier to scale and more fault-tolerant since requests can be processed independently.
+
+### Stateful
+
+- In a stateful API, the server maintains session information about the client between requests.
+- This can be useful for maintaining user-specific data or tracking the state of a multi-step process.
+- However, stateful APIs can be harder to scale since the server must maintain session state across multiple requests.
+
+### Comparisons Between Stateless and Stateful Protocol
+
+| Stateless Protocol | Stateful Protocol |
+| -- | -- |
+| Stateless Protocol does not require the server to retain the server information or session details. | Stateful Protocol require server to save the status and session information. |
+| In Stateless Protocol, there is no tight dependency between server and client. | In Stateful protocol, there is tight dependency between server and client |
+| The Stateless protocol design simplify the server design. | The Stateful protocol design makes the design of server very complex and heavy. |
+| Stateless Protocols works better at the time of crash because there is no state that must be restored, a failed server can simply restart after a crash.  | Stateful Protocol does not work better at the time of crash because stateful server have to keep the information of the status and session details of the internal states. |
+| Stateless Protocols handle the transaction very quickly. |  Stateful Protocols handle the transaction very slowly. |
+| Stateless Protocols are easy to implement in Internet.  | Stateful protocols are logically heavy to implement in Internet. |
+| Scaling architecture is relatively easier. | It is difficult and complex to scale architecture. |
+| The requests are not dependent on the server side and are self contained. |  The requests are always dependent on the server side. |
+| To process different information at a time , different servers can be used.  | To process every request , the same server must be utilized. |
+| Example of Stateless are UDP , DNS , HTTP , etc. |   Example of Stateful are FTP , Telnet , etc. |
+
+### References
+
+- [https://www.geeksforgeeks.org/difference-between-stateless-and-stateful-protocol/](https://www.geeksforgeeks.org/difference-between-stateless-and-stateful-protocol/)
+
+## Rate Limiting
+
+- API rate limiting is a security practice that limits the number of requests a client can make to an API within a set time frame. 
+- It helps prevent abuse, misuse, or overloading of the API infrastructure.
+
+### Common rate limiting algorithms
+
+- Leaky bucket
+- Token bucket
+- Fixed window
+- Sliding log
+- Sliding window
+
+## API Throttling
+
+- API throttling is a specific type of rate limiting that involves intentionally delaying or limiting the number of requests a client can make to an API.
+- It is often used to prevent clients from overloading the API server or to ensure fair usage of resources.
+- Throttling can be implemented by delaying requests, returning error responses, or limiting the number of requests accepted by the server.
+- Throttling can be useful in scenarios where the server is under heavy load or when clients are making too many requests.
+
+### Key Difference b/w Rate limiting and Api throttling
+
+- Rate limiting is a broader term that encompasses various techniques to control the rate of requests to an API, while API throttling is a specific type of rate limiting that involves delaying or limiting the number of requests.
+- Rate limiting can be used to prevent abuse, misuse, or overloading of the API infrastructure, while throttling is often used to manage client requests and ensure fair usage of resources.
+- Rate limiting can be implemented using algorithms such as leaky bucket, token bucket, fixed window, sliding log, or sliding window, while throttling can involve delaying requests, returning error responses, or limiting the number of requests accepted by the server.
+
+### Products and tools that can be used to implement API rate limiting
+
+- Amazon API Gateway
+- Google Cloud Endpoints
+- Azure Api Management
+- Kong Gateway
+- NGINX
+- Express Rate Limit
+- RateLimit.js
+- Spring Cloud Gateway
+
+- Tyk
+- RateLimiter.io
+- AWS WAF
+- Azure Front Door
+- Gloo Gateway
+- Apigee
+
+### References
+
+- [https://medium.com/@bijit211987/everything-you-need-to-know-about-rate-limiting-for-apis-f236d2adcfff](https://medium.com/@bijit211987/everything-you-need-to-know-about-rate-limiting-for-apis-f236d2adcfff)

@@ -16,3 +16,4 @@
 4. `Cost-effectiveness`: Pay-as-you-go pricing model eliminates upfront costs and allows for cost optimization based on usage patterns.
 5. `Monitoring & Logging`: Integrates with CloudWatch and X-Ray for real-time monitoring, logging, and tracing of API calls.
 6. `Customization`: Allows custom domain names, SSL certificates, and SDK generation for client applications.
+
