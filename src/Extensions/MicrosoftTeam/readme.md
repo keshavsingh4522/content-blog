@@ -2,7 +2,7 @@
 
 ## Enable this extension in visual studio
 
-![image](https://github.com/user-attachments/assets/eeeec00c-fe94-45b4-8e2c-a91faaf0d6a1)
+![image](Assets/Install_Teams_Toolkit_in_Microsoft_Visual_Studio.png)
 
 
 ## References
