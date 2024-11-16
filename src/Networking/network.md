@@ -11,3 +11,13 @@
 - [x] ✅ SMTP (Simple Mail Transfer Protocol): Handles the sending of emails 📧 between servers.
 - [x] ✅ SSH (Secure Shell): Provides secure access to remote computers.
 - [x] ✅ IMAP (Internet Message Access Protocol): Allows users to retrieve and manage emails from a remote server.
+
+<details>
+<summary>Network Protocol GIF</summary>
+
+![](./Assets/network-protocol.gif)
+
+- References
+> https://www.linkedin.com/posts/sosamsony_webdevelopment-frontenddeveloper-userexperience-activity-7262462729758593025-TaBf?utm_source=share&utm_medium=member_desktop
+
+</details>
