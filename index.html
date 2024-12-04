@@ -3,29 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navbar with Dropdown</title>
+    <title>Markdown Viewer</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; line-height: 1.6; }
         nav { background: #333; color: white; padding: 10px; display: flex; align-items: center; }
-        .dropdown { position: relative; margin-right: 15px; }
+        .dropdown, .nav-item { margin-right: 15px; }
         .dropdown > button { background: none; border: none; color: white; cursor: pointer; font-size: 16px; }
         .dropdown-menu { display: none; position: absolute; top: 100%; left: 0; background: white; color: black; min-width: 150px; border: 1px solid #ddd; z-index: 10; }
         .dropdown-menu a { display: block; padding: 8px 12px; text-decoration: none; color: black; }
         .dropdown-menu a:hover { background: #f0f0f0; }
         .dropdown:hover .dropdown-menu { display: block; }
-        .content { padding: 20px; border-top: 1px solid #ddd; margin-top: 20px; }
+        .nav-item a { color: white; text-decoration: none; font-size: 16px; }
+        .nav-item a:hover { text-decoration: underline; }
+        .content { padding: 20px; }
+        .markdown-content { padding: 20px; border: 1px solid #ddd; background: #f9f9f9; }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
     <nav id="navbar"></nav>
     <div class="content" id="content">Select a file to view its content.</div>
 
     <script>
+        // Fetch structure.json
         async function fetchStructure() {
             const response = await fetch('structure.json');
             return await response.json();
         }
 
+        // Create dropdown for folders
         function createDropdown(folder) {
             const dropdown = document.createElement('div');
             dropdown.className = 'dropdown';
@@ -59,33 +65,43 @@
             return dropdown;
         }
 
+        // Render navbar
         function renderNavbar(structure) {
             const navbar = document.getElementById('navbar');
-            structure.children.forEach(folder => {
-                if (folder.isDirectory) {
-                    const dropdown = createDropdown(folder);
+
+            // Render top-level files
+            structure.children.forEach(item => {
+                if (!item.isDirectory) {
+                    const navItem = document.createElement('div');
+                    navItem.className = 'nav-item';
+
+                    const link = document.createElement('a');
+                    link.textContent = item.name;
+                    link.href = '#';
+                    link.onclick = (e) => {
+                        e.preventDefault();
+                        loadFile(item.path);
+                    };
+
+                    navItem.appendChild(link);
+                    navbar.appendChild(navItem);
+                } else {
+                    // Render directories as dropdowns
+                    const dropdown = createDropdown(item);
                     navbar.appendChild(dropdown);
                 }
             });
         }
 
+        // Load and render Markdown file
         async function loadFile(filePath) {
             const response = await fetch(filePath);
             const markdown = await response.text();
-            document.getElementById('content').innerHTML = markdownToHtml(markdown);
+            const htmlContent = marked(markdown); // Convert Markdown to HTML
+            document.getElementById('content').innerHTML = `<div class="markdown-content">${htmlContent}</div>`;
         }
 
-        function markdownToHtml(markdown) {
-            return markdown
-                .replace(/^# (.*?)$/gm, '<h1>$1</h1>')
-                .replace(/^## (.*?)$/gm, '<h2>$1</h2>')
-                .replace(/^\* (.*?)$/gm, '<li>$1</li>')
-                .replace(/__(.*?)__/gm, '<strong>$1</strong>')
-                .replace(/_(.*?)_/gm, '<em>$1</em>')
-                .replace(/\[(.*?)\]\((.*?)\)/gm, '<a href="$2">$1</a>')
-                .replace(/\n/g, '<br>');
-        }
-
+        // Initialize the app
         (async () => {
             const structure = await fetchStructure();
             renderNavbar(structure);
