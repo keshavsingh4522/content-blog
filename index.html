@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Folder Viewer</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .folder, .file { margin: 5px 0; cursor: pointer; }
+        .folder { font-weight: bold; color: #007bff; }
+        .file { color: #333; }
+        .content { margin-top: 20px; padding: 10px; border: 1px solid #ddd; background: #f9f9f9; }
+    </style>
+</head>
+<body>
+    <h1>Folder Viewer</h1>
+    <div id="fileStructure"></div>
+    <div id="content" class="content"></div>
+
+    <script>
+        // Define the folder and file structure manually
+        const folderStructure = {
+            name: "root",
+            isDirectory: true,
+            children: [
+                {
+                    name: "folder1",
+                    isDirectory: true,
+                    children: [
+                        { name: "file1.md", isDirectory: false, path: "assets/folder1/file1.md" },
+                        { name: "file2.md", isDirectory: false, path: "assets/folder1/file2.md" }
+                    ]
+                },
+                {
+                    name: "folder2",
+                    isDirectory: true,
+                    children: [
+                        { name: "file3.md", isDirectory: false, path: "assets/folder2/file3.md" },
+                        { name: "file4.md", isDirectory: false, path: "assets/folder2/file4.md" }
+                    ]
+                }
+            ]
+        };
+
+        const fileStructureEl = document.getElementById('fileStructure');
+        const contentEl = document.getElementById('content');
+
+        // Render folder and file structure
+        function renderFiles(structure, basePath = '') {
+            fileStructureEl.innerHTML = '';
+            structure.children.forEach(item => {
+                const el = document.createElement('div');
+                el.textContent = item.name;
+                el.className = item.isDirectory ? 'folder' : 'file';
+                el.onclick = () => {
+                    if (item.isDirectory) {
+                        renderFiles(item, `${basePath}/${item.name}`);
+                    } else {
+                        loadFile(item.path);
+                    }
+                };
+                fileStructureEl.appendChild(el);
+            });
+        }
+
+        // Load and display Markdown file content
+        async function loadFile(filePath) {
+            const response = await fetch(filePath);
+            const markdown = await response.text();
+            contentEl.innerHTML = markdownToHtml(markdown);
+        }
+
+        // Convert Markdown to HTML (basic parser)
+        function markdownToHtml(markdown) {
+            return markdown
+                .replace(/^# (.*?)$/gm, '<h1>$1</h1>')
+                .replace(/^## (.*?)$/gm, '<h2>$1</h2>')
+                .replace(/^\* (.*?)$/gm, '<li>$1</li>')
+                .replace(/__(.*?)__/gm, '<strong>$1</strong>')
+                .replace(/_(.*?)_/gm, '<em>$1</em>')
+                .replace(/\[(.*?)\]\((.*?)\)/gm, '<a href="$2">$1</a>')
+                .replace(/\n/g, '<br>');
+        }
+
+        // Initialize rendering
+        renderFiles(folderStructure);
+    </script>
+</body>
+</html>
