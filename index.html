@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Folder Viewer</title>
+    <title>GitHub Pages Folder Viewer</title>
     <style>
         body { font-family: Arial, sans-serif; }
         .folder, .file { margin: 5px 0; cursor: pointer; }
@@ -13,39 +13,21 @@
     </style>
 </head>
 <body>
-    <h1>Folder Viewer</h1>
+    <h1>GitHub Pages Folder Viewer</h1>
     <div id="fileStructure"></div>
     <div id="content" class="content"></div>
 
     <script>
-        // Define the folder and file structure manually
-        const folderStructure = {
-            name: "root",
-            isDirectory: true,
-            children: [
-                {
-                    name: "folder1",
-                    isDirectory: true,
-                    children: [
-                        { name: "file1.md", isDirectory: false, path: "assets/folder1/file1.md" },
-                        { name: "file2.md", isDirectory: false, path: "assets/folder1/file2.md" }
-                    ]
-                },
-                {
-                    name: "folder2",
-                    isDirectory: true,
-                    children: [
-                        { name: "file3.md", isDirectory: false, path: "assets/folder2/file3.md" },
-                        { name: "file4.md", isDirectory: false, path: "assets/folder2/file4.md" }
-                    ]
-                }
-            ]
-        };
-
         const fileStructureEl = document.getElementById('fileStructure');
         const contentEl = document.getElementById('content');
 
-        // Render folder and file structure
+        // Load folder structure from JSON
+        async function fetchStructure() {
+            const response = await fetch('structure.json');
+            return await response.json();
+        }
+
+        // Render folder structure
         function renderFiles(structure, basePath = '') {
             fileStructureEl.innerHTML = '';
             structure.children.forEach(item => {
@@ -56,21 +38,21 @@
                     if (item.isDirectory) {
                         renderFiles(item, `${basePath}/${item.name}`);
                     } else {
-                        loadFile(item.path);
+                        loadFile(`${basePath}/${item.name}`);
                     }
                 };
                 fileStructureEl.appendChild(el);
             });
         }
 
-        // Load and display Markdown file content
+        // Load and render Markdown content
         async function loadFile(filePath) {
             const response = await fetch(filePath);
             const markdown = await response.text();
             contentEl.innerHTML = markdownToHtml(markdown);
         }
 
-        // Convert Markdown to HTML (basic parser)
+        // Convert Markdown to HTML (basic parsing)
         function markdownToHtml(markdown) {
             return markdown
                 .replace(/^# (.*?)$/gm, '<h1>$1</h1>')
@@ -82,8 +64,11 @@
                 .replace(/\n/g, '<br>');
         }
 
-        // Initialize rendering
-        renderFiles(folderStructure);
+        // Initialize
+        (async () => {
+            const structure = await fetchStructure();
+            renderFiles(structure);
+        })();
     </script>
 </body>
 </html>

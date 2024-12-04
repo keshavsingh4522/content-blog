@@ -1,0 +1,23 @@
+{
+    "name": "root",
+    "isDirectory": true,
+    "children": [
+      {
+        "name": "folder1",
+        "isDirectory": true,
+        "children": [
+          { "name": "file1.md", "isDirectory": false },
+          { "name": "file2.md", "isDirectory": false }
+        ]
+      },
+      {
+        "name": "folder2",
+        "isDirectory": true,
+        "children": [
+          { "name": "file3.md", "isDirectory": false },
+          { "name": "file4.md", "isDirectory": false }
+        ]
+      }
+    ]
+  }
+  
