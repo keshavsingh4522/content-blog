@@ -3,56 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub Pages Folder Viewer</title>
+    <title>Navbar with Dropdown</title>
     <style>
-        body { font-family: Arial, sans-serif; }
-        .folder, .file { margin: 5px 0; cursor: pointer; }
-        .folder { font-weight: bold; color: #007bff; }
-        .file { color: #333; }
-        .content { margin-top: 20px; padding: 10px; border: 1px solid #ddd; background: #f9f9f9; }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        nav { background: #333; color: white; padding: 10px; display: flex; align-items: center; }
+        .dropdown { position: relative; margin-right: 15px; }
+        .dropdown > button { background: none; border: none; color: white; cursor: pointer; font-size: 16px; }
+        .dropdown-menu { display: none; position: absolute; top: 100%; left: 0; background: white; color: black; min-width: 150px; border: 1px solid #ddd; z-index: 10; }
+        .dropdown-menu a { display: block; padding: 8px 12px; text-decoration: none; color: black; }
+        .dropdown-menu a:hover { background: #f0f0f0; }
+        .dropdown:hover .dropdown-menu { display: block; }
+        .content { padding: 20px; border-top: 1px solid #ddd; margin-top: 20px; }
     </style>
 </head>
 <body>
-    <h1>GitHub Pages Folder Viewer</h1>
-    <div id="fileStructure"></div>
-    <div id="content" class="content"></div>
+    <nav id="navbar"></nav>
+    <div class="content" id="content">Select a file to view its content.</div>
 
     <script>
-        const fileStructureEl = document.getElementById('fileStructure');
-        const contentEl = document.getElementById('content');
-
-        // Load folder structure from JSON
         async function fetchStructure() {
             const response = await fetch('structure.json');
             return await response.json();
         }
 
-        // Render folder structure
-        function renderFiles(structure, basePath = '') {
-            fileStructureEl.innerHTML = '';
-            structure.children.forEach(item => {
-                const el = document.createElement('div');
-                el.textContent = item.name;
-                el.className = item.isDirectory ? 'folder' : 'file';
-                el.onclick = () => {
-                    if (item.isDirectory) {
-                        renderFiles(item, `${basePath}/${item.name}`);
-                    } else {
-                        loadFile(`${basePath}/${item.name}`);
-                    }
-                };
-                fileStructureEl.appendChild(el);
+        function createDropdown(folder) {
+            const dropdown = document.createElement('div');
+            dropdown.className = 'dropdown';
+
+            const button = document.createElement('button');
+            button.textContent = folder.name;
+            dropdown.appendChild(button);
+
+            const menu = document.createElement('div');
+            menu.className = 'dropdown-menu';
+
+            folder.children.forEach(item => {
+                const link = document.createElement('a');
+                link.textContent = item.name;
+                if (item.isDirectory) {
+                    link.onclick = (e) => {
+                        e.preventDefault();
+                        alert('Nested folders are not supported in the navbar.');
+                    };
+                } else {
+                    link.href = '#';
+                    link.onclick = (e) => {
+                        e.preventDefault();
+                        loadFile(item.path);
+                    };
+                }
+                menu.appendChild(link);
+            });
+
+            dropdown.appendChild(menu);
+            return dropdown;
+        }
+
+        function renderNavbar(structure) {
+            const navbar = document.getElementById('navbar');
+            structure.children.forEach(folder => {
+                if (folder.isDirectory) {
+                    const dropdown = createDropdown(folder);
+                    navbar.appendChild(dropdown);
+                }
             });
         }
 
-        // Load and render Markdown content
         async function loadFile(filePath) {
             const response = await fetch(filePath);
             const markdown = await response.text();
-            contentEl.innerHTML = markdownToHtml(markdown);
+            document.getElementById('content').innerHTML = markdownToHtml(markdown);
         }
 
-        // Convert Markdown to HTML (basic parsing)
         function markdownToHtml(markdown) {
             return markdown
                 .replace(/^# (.*?)$/gm, '<h1>$1</h1>')
@@ -64,10 +86,9 @@
                 .replace(/\n/g, '<br>');
         }
 
-        // Initialize
         (async () => {
             const structure = await fetchStructure();
-            renderFiles(structure);
+            renderNavbar(structure);
         })();
     </script>
 </body>
