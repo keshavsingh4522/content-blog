@@ -3,114 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Markdown Viewer</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; line-height: 1.6; }
-        nav { background: #333; color: white; padding: 10px; display: flex; align-items: center; }
-        .dropdown { position: relative; margin-right: 15px; }
-        .dropdown > button { background: none; border: none; color: white; cursor: pointer; font-size: 16px; }
-        .dropdown-menu { display: none; position: absolute; top: 100%; left: 0; background: white; color: black; min-width: 150px; border: 1px solid #ddd; z-index: 10; }
-        .dropdown-menu a { display: block; padding: 8px 12px; text-decoration: none; color: black; }
-        .dropdown-menu a:hover { background: #f0f0f0; }
-        .dropdown:hover .dropdown-menu { display: block; }
-        .nav-item a { color: white; text-decoration: none; font-size: 16px; margin-right: 15px; }
-        .nav-item a:hover { text-decoration: underline; }
-        .content { padding: 20px; }
-        .markdown-content { padding: 20px; border: 1px solid #ddd; background: #f9f9f9; }
-    </style>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <title>Content blog</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to the external CSS file -->
 </head>
 <body>
     <nav id="navbar"></nav>
     <div class="content" id="content">Select a file to view its content.</div>
 
-    <script>
-        // Fetch structure.json
-        async function fetchStructure() {
-            const response = await fetch('structure.json');
-            return await response.json();
-        }
-
-        // Create dropdown for folders
-        function createDropdown(folder) {
-            const dropdown = document.createElement('div');
-            dropdown.className = 'dropdown';
-
-            const button = document.createElement('button');
-            button.textContent = folder.name;
-            dropdown.appendChild(button);
-
-            const menu = document.createElement('div');
-            menu.className = 'dropdown-menu';
-
-            folder.children.forEach(item => {
-                const link = document.createElement('a');
-                link.textContent = item.name;
-                if (!item.isDirectory) {
-                    link.href = '#';
-                    link.onclick = (e) => {
-                        e.preventDefault();
-                        loadFile(item.path);
-                    };
-                } else {
-                    link.onclick = (e) => {
-                        e.preventDefault();
-                        alert('Nested folders are not supported in the dropdown.');
-                    };
-                }
-                menu.appendChild(link);
-            });
-
-            dropdown.appendChild(menu);
-            return dropdown;
-        }
-
-        // Render navbar
-        function renderNavbar(structure) {
-            const navbar = document.getElementById('navbar');
-
-            structure.children.forEach(item => {
-                if (!item.isDirectory) {
-                    // Render standalone file as navbar link
-                    const navItem = document.createElement('div');
-                    navItem.className = 'nav-item';
-
-                    const link = document.createElement('a');
-                    link.textContent = item.name;
-                    link.href = '#';
-                    link.onclick = (e) => {
-                        e.preventDefault();
-                        loadFile(item.path);
-                    };
-
-                    navItem.appendChild(link);
-                    navbar.appendChild(navItem);
-                } else {
-                    // Render directories as dropdowns
-                    const dropdown = createDropdown(item);
-                    navbar.appendChild(dropdown);
-                }
-            });
-        }
-
-        // Load and render Markdown file
-        async function loadFile(filePath) {
-            try {
-                const response = await fetch(filePath);
-                if (!response.ok) throw new Error(`Failed to load file: ${filePath}`);
-                const markdown = await response.text();
-                const htmlContent = marked.parse(markdown);
-                document.getElementById('content').innerHTML = `<div class="markdown-content">${htmlContent}</div>`;
-            } catch (error) {
-                document.getElementById('content').innerHTML = `<div class="markdown-content">Error: ${error.message}</div>`;
-            }
-        }
-
-        // Initialize the app
-        (async () => {
-            const structure = await fetchStructure();
-            renderNavbar(structure);
-        })();
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script> <!-- External library -->
+    <script src="script.js"></script> <!-- Link to the external JavaScript file -->
 </body>
 </html>
