@@ -8,6 +8,37 @@
             "path": "src/API/API.md"
         },
         {
+            "name": "AWS",
+            "isDirectory": true,
+            "children":[
+                {
+                    "name": "Api Gateway",
+                    "isDirectory": false,
+                    "path": "src/AWS/apiGateway.md"
+                },
+                {
+                    "name": "AWS",
+                    "isDirectory": false,
+                    "path": "src/AWS/aws.md"
+                },
+                {
+                    "name": "EC2",
+                    "isDirectory": false,
+                    "path": "src/AWS/ec2.md"
+                },
+                {
+                    "name": "Lambda",
+                    "isDirectory": false,
+                    "path": "src/AWS/lambda.md"
+                },
+                {
+                    "name": "VPC",
+                    "isDirectory": false,
+                    "path": "src/AWS/vpc.md"
+                }
+            ]
+        },
+        {
             "name": "Azure",
             "isDirectory": true,
             "children": [
