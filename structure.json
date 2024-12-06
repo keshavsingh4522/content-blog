@@ -10,7 +10,7 @@
         {
             "name": "AWS",
             "isDirectory": true,
-            "children":[
+            "children": [
                 {
                     "name": "Api Gateway",
                     "isDirectory": false,
@@ -51,6 +51,58 @@
                     "name": "App Service",
                     "isDirectory": false,
                     "path": "src/Azure/Certification/az-204/app-service.md"
+                }
+            ]
+        },
+        {
+            "name": "CSharp",
+            "isDirectory": true,
+            "children": [
+                {
+                    "name": "C#",
+                    "isDirectory": false,
+                    "path": "src/CSharp/csharp.md"
+                },
+                {
+                    "name": "EF",
+                    "isDirectory": false,
+                    "path": "src/CSharp/ef.md"
+                },
+                {
+                    "name": "OOP",
+                    "isDirectory": false,
+                    "path": "src/CSharp/OOP.md"
+                },
+                {
+                    "name": "TIPS",
+                    "isDirectory": false,
+                    "path": "src/CSharp/tips.md"
+                },
+                {
+                    "name": "Dotnet",
+                    "isDirectory": true,
+                    "children": [
+                        {
+                            "name": "CLI",
+                            "isDirectory": false,
+                            "path": "src/CSharp/Dotnet/dotnet-cli.md"
+                        },
+                        {
+                            "name": "Nuget",
+                            "isDirectory": false,
+                            "path": "src/CSharp/Dotnet/dotnet-nuget.md"
+                        },
+                        {
+                            "name": "Sonar",
+                            "isDirectory": false,
+                            "path": "src/CSharp/Dotnet/dotnet-sonar.md"
+                        },
+                        {
+                            "name": "Dotnet",
+                            "isDirectory": false,
+                            "path": "src/CSharp/Dotnet/dotnet.md"
+                        }
+                    ]
                 }
             ]
         },
