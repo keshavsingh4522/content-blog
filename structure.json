@@ -43,14 +43,19 @@
             "isDirectory": true,
             "children": [
                 {
+                    "name": "App Service",
+                    "isDirectory": false,
+                    "path": "src/Azure/Certification/az-204/app-service.md"
+                },
+                {
                     "name": "Function",
                     "isDirectory": false,
                     "path": "src/Azure/Certification/az-204/function.md"
                 },
                 {
-                    "name": "App Service",
+                    "name": "Power Automate",
                     "isDirectory": false,
-                    "path": "src/Azure/Certification/az-204/app-service.md"
+                    "path": "src/Azure/power-automate.md"
                 }
             ]
         },
