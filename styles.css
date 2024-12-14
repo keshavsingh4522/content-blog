@@ -2,7 +2,7 @@ pre.collapsed {
     max-height: 150px;
     overflow: hidden;
     position: relative;
-    display: none;
+    display: block; /* Change from none to block */
 }
 
 pre.collapsed::after {
@@ -15,4 +15,54 @@ pre.collapsed::after {
     cursor: pointer;
     padding: 5px;
     display: block;
+}
+
+/* Add styles for the new buttons */
+.code-actions .btn {
+    margin-left: 5px;
+}
+
+/* Add consistent spacing for global buttons */
+.global-buttons .btn {
+    margin-right: 5px;
+}
+
+.global-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+}
+
+.markdown-content {
+    overflow: hidden;
+}
+
+.markdown-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.tree-view {
+    list-style-type: none;
+    padding-left: 1rem;
+}
+
+.tree-view li {
+    margin: 0.5rem 0;
+}
+
+.tree-view .folder {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.tree-view .file {
+    cursor: pointer;
+    color: #007bff;
+}
+
+.search-bar {
+    margin-bottom: 1rem;
 }

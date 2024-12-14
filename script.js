@@ -86,7 +86,17 @@ async function loadFile(filePath) {
     try {
         const response = await fetch(filePath);
         if (!response.ok) throw new Error(`Failed to load file: ${filePath}`);
-        const markdown = await response.text();
+        let markdown = await response.text();
+
+        // Correct image paths in the markdown content
+        const basePath = filePath.substring(0, filePath.lastIndexOf('/') + 1);
+        markdown = markdown.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, src) => {
+            if (!src.startsWith('http') && !src.startsWith('/')) {
+                src = basePath + src;
+            }
+            return `![${alt}](${src})`;
+        });
+
         const htmlContent = marked.parse(markdown);
 
         document.getElementById('content').innerHTML = `
@@ -95,12 +105,23 @@ async function loadFile(filePath) {
 
         addCopyAndCollapseActions(); // Add copy and collapsibility actions to code blocks
         hljs.highlightAll(); // Apply syntax highlighting
+
+        // Store the full markdown content and file name for global actions
+        window.currentMarkdownContent = markdown;
+        window.currentFileName = filePath.split('/').pop();
+
+        // Show the content area and hide the cards container
+        document.getElementById('content').style.display = 'block';
+        document.getElementById('cards-container').style.display = 'none';
+
+        // Show global buttons
+        document.querySelector('.global-buttons').style.display = 'flex';
     } catch (error) {
         document.getElementById('content').innerHTML = `<p class="text-danger">Error: ${error.message}</p>`;
     }
 }
 
-// Add copy-to-clipboard and collapsibility to code blocks
+// Add copy-to-clipboard, download, view raw content, and collapsibility to code blocks
 function addCopyAndCollapseActions() {
     const preBlocks = document.querySelectorAll('pre');
     preBlocks.forEach((pre, index) => {
@@ -133,6 +154,30 @@ function addCopyAndCollapseActions() {
             }).catch((err) => console.error('Failed to copy text:', err));
         });
 
+        // Add Download Button
+        const downloadButton = document.createElement('button');
+        downloadButton.className = 'btn btn-sm btn-outline-success d-flex align-items-center gap-1';
+        downloadButton.innerHTML = `<i class="fas fa-download"></i><span>Download</span>`;
+        downloadButton.addEventListener('click', () => {
+            const blob = new Blob([pre.textContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `code-block-${index + 1}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        // Add View Raw Content Button
+        const viewRawButton = document.createElement('button');
+        viewRawButton.className = 'btn btn-sm btn-outline-info d-flex align-items-center gap-1';
+        viewRawButton.innerHTML = `<i class="fas fa-eye"></i><span>View Raw</span>`;
+        viewRawButton.addEventListener('click', () => {
+            const rawWindow = window.open('', '_blank');
+            rawWindow.document.write(`<pre>${pre.textContent}</pre>`);
+            rawWindow.document.close();
+        });
+
         // Add Collapse/Expand Button
         const collapseButton = document.createElement('button');
         collapseButton.className = 'btn btn-sm btn-outline-secondary d-flex align-items-center gap-1';
@@ -147,6 +192,8 @@ function addCopyAndCollapseActions() {
 
         // Append buttons to the actions container
         actionsDiv.appendChild(copyButton);
+        actionsDiv.appendChild(downloadButton);
+        actionsDiv.appendChild(viewRawButton);
         actionsDiv.appendChild(collapseButton);
 
         // Append title and actions to the header
@@ -162,10 +209,120 @@ function addCopyAndCollapseActions() {
         pre.style.margin = '0';
         pre.style.padding = '1rem';
         pre.style.backgroundColor = '#f8f9fa';
-        pre.style.display = 'block';
     });
 }
 
+// Add global toggle button for all code blocks
+function addGlobalToggleButton() {
+    const globalToggleButton = document.createElement('button');
+    globalToggleButton.className = 'btn btn-outline-secondary';
+    globalToggleButton.innerHTML = '<i class="fas fa-code"></i>'; // Use icon instead of text
+    globalToggleButton.addEventListener('click', () => {
+        const preBlocks = document.querySelectorAll('pre');
+        preBlocks.forEach(pre => {
+            pre.classList.toggle('collapsed');
+            pre.style.display = pre.classList.contains('collapsed') ? 'none' : 'block';
+        });
+    });
+    document.querySelector('.global-buttons').appendChild(globalToggleButton);
+}
+
+// Add global buttons for view raw and download all code blocks
+function addGlobalButtons() {
+    const container = document.querySelector('.global-buttons');
+
+    // Global View Raw Button
+    const globalViewRawButton = document.createElement('button');
+    globalViewRawButton.className = 'btn btn-outline-info';
+    globalViewRawButton.innerHTML = '<i class="fas fa-eye"></i>'; // Use icon instead of text
+    globalViewRawButton.addEventListener('click', () => {
+        const rawWindow = window.open('', '_blank');
+        rawWindow.document.write(`<pre>${window.currentMarkdownContent}</pre>`);
+        rawWindow.document.close();
+    });
+
+    // Global Download Button
+    const globalDownloadButton = document.createElement('button');
+    globalDownloadButton.className = 'btn btn-outline-success';
+    globalDownloadButton.innerHTML = '<i class="fas fa-download"></i>'; // Use icon instead of text
+    globalDownloadButton.addEventListener('click', () => {
+        const blob = new Blob([window.currentMarkdownContent], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = window.currentFileName || 'full-markdown-file.md';
+        a.click();
+        URL.revokeObjectURL(url);
+    });
+
+    // Insert buttons into the global-buttons container
+    container.appendChild(globalViewRawButton);
+    container.appendChild(globalDownloadButton);
+}
+
+function createTreeView(structure, container) {
+    const ul = document.createElement('ul');
+    ul.className = 'tree-view';
+
+    structure.children.forEach(item => {
+        const li = document.createElement('li');
+        if (item.isDirectory) {
+            li.className = 'folder';
+            li.textContent = item.name;
+            li.addEventListener('click', () => {
+                li.classList.toggle('expanded');
+                if (!li.classList.contains('loaded')) {
+                    li.classList.add('loaded');
+                    createTreeView(item, li);
+                }
+            });
+        } else {
+            li.className = 'file';
+            li.textContent = item.name;
+            li.addEventListener('click', (e) => {
+                e.stopPropagation();
+                loadFile(item.path);
+            });
+        }
+        ul.appendChild(li);
+    });
+
+    container.appendChild(ul);
+}
+
+function searchFiles(query, structure, results = []) {
+    structure.children.forEach(item => {
+        if (item.isDirectory) {
+            searchFiles(query, item, results);
+        } else if (item.name.toLowerCase().includes(query.toLowerCase())) {
+            results.push(item);
+        }
+    });
+    return results;
+}
+
+function renderSearchResults(results) {
+    const searchResultsContainer = document.getElementById('search-results');
+    searchResultsContainer.innerHTML = '';
+
+    if (results.length === 0) {
+        searchResultsContainer.innerHTML = '<p>No results found.</p>';
+        return;
+    }
+
+    const ul = document.createElement('ul');
+    ul.className = 'list-group';
+
+    results.forEach(item => {
+        const li = document.createElement('li');
+        li.className = 'list-group-item file';
+        li.textContent = item.name;
+        li.addEventListener('click', () => loadFile(item.path));
+        ul.appendChild(li);
+    });
+
+    searchResultsContainer.appendChild(ul);
+}
 
 // Initialize the app
 (async () => {
@@ -173,5 +330,29 @@ function addCopyAndCollapseActions() {
     if (structure) {
         renderNavbar(structure);
         hljs.highlightAll(); // Apply syntax highlighting
+        addGlobalToggleButton(); // Add global toggle button
+        addGlobalButtons(); // Add global view raw and download buttons
+
+        // Hide global buttons by default
+        document.querySelector('.global-buttons').style.display = 'none';
+
+        // Create tree view
+        const treeViewContainer = document.getElementById('tree-view-container');
+        createTreeView(structure, treeViewContainer);
+
+        // Add search functionality
+        const searchInput = document.getElementById('search-input');
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value;
+            const results = searchFiles(query, structure);
+            renderSearchResults(results);
+        });
+
+        // Add event listener to the blog link to display cards
+        document.querySelector('.navbar-brand').addEventListener('click', (e) => {
+            e.preventDefault();
+            // Hide global buttons when displaying cards
+            document.querySelector('.global-buttons').style.display = 'none';
+        });
     }
 })();
