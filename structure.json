@@ -79,6 +79,11 @@
                     "path": "src/CSharp/OOP.md"
                 },
                 {
+                    "name":"Security And Cryptography",
+                    "isDirectory":false,
+                    "path":"src/CSharp/security-and-cryptography.md"
+                },
+                {
                     "name": "TIPS",
                     "isDirectory": false,
                     "path": "src/CSharp/tips.md"
