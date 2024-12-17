@@ -18,6 +18,97 @@
     - Policy-Based Authorization
     - Resource-Based Authorization
 
+```c#
+// A .NET 9 application with Azure AD B2C integration, demonstrating role-based,
+// claims-based, policy-based, and resource-based authorization using the latest features.
+
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Identity.Web;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using System.Threading.Tasks;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add authentication and Azure AD B2C configuration
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAdB2C"));
+
+// Add authorization policies
+builder.Services.AddAuthorization(options =>
+{
+    // Role-based policy
+    options.AddPolicy("RequireAdmin", policy =>
+        policy.RequireRole("Admin"));
+
+    // Claims-based policy
+    options.AddPolicy("EmailVerified", policy =>
+        policy.RequireClaim("email_verified", "true"));
+
+    // Custom policy for age-based authorization
+    options.AddPolicy("AgeOver18", policy =>
+        policy.RequireAssertion(context =>
+        {
+            var ageClaim = context.User.FindFirst("age")?.Value;
+            return int.TryParse(ageClaim, out var age) && age > 18;
+        }));
+});
+
+// Add resource-based authorization
+builder.Services.AddSingleton<IAuthorizationHandler, ResourceAuthorizationHandler>();
+
+var app = builder.Build();
+
+// Middleware pipeline
+app.UseAuthentication();
+app.UseAuthorization();
+
+// Controllers
+app.MapGet("/admin", [Authorize(Policy = "RequireAdmin")] () => "Admin access granted.");
+
+app.MapGet("/verify-email", [Authorize(Policy = "EmailVerified")] () => "Email verified access granted.");
+
+app.MapPost("/edit-resource", async (IAuthorizationService authService, ClaimsPrincipal user, Resource resource) =>
+{
+    var authorizationResult = await authService.AuthorizeAsync(user, resource, "EditResourcePolicy");
+    return authorizationResult.Succeeded ? Results.Ok("Resource access granted.") : Results.Forbid();
+}).RequireAuthorization();
+
+app.Run();
+
+// Resource authorization handler
+public class ResourceAuthorizationHandler : AuthorizationHandler<OperationAuthorizationRequirement, Resource>
+{
+    protected override Task HandleRequirementAsync(AuthorizationHandlerContext context,
+        OperationAuthorizationRequirement requirement, Resource resource)
+    {
+        if (resource.Owner == context.User.Identity?.Name)
+        {
+            context.Succeed(requirement);
+        }
+        return Task.CompletedTask;
+    }
+}
+
+// Example resource class
+public class Resource
+{
+    public string Owner { get; set; } = string.Empty;
+}
+
+/*
+Additional Features in .NET 9:
+1. **AddMicrosoftIdentityWebApi:** Simplifies Azure AD B2C configuration by using Microsoft.Identity.Web.
+2. **Middleware Enhancements:** Utilize minimal APIs and enhanced authorization filters.
+3. **Enhanced Security Features:** Improved support for OpenID Connect and Microsoft.Identity.Client.
+4. **Telemetry:** Integrate OpenTelemetry for monitoring Azure AD B2C authentication flows.
+5. **Blazor Integration:** Use Blazor for SPA with Azure AD B2C authentication.
+*/
+
+```
+
 ### Data Integrity & Confidentiality:
 
 - `Integrity`: Ensuring data has not been altered (e.g., HMAC).
