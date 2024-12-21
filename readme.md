@@ -7,3 +7,7 @@
 ```py
 python -m http.server
 ```
+
+## Generate Json
+
+> bash ./generate_json.sh
