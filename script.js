@@ -116,6 +116,11 @@ async function loadFile(filePath) {
 
         // Show global buttons
         document.querySelector('.global-buttons').style.display = 'flex';
+
+        // Hide search bar, search results, and tree view container
+        document.querySelector('.search-bar').style.display = 'none';
+        document.getElementById('search-results').style.display = 'none';
+        document.getElementById('tree-view-container').style.display = 'none';
     } catch (error) {
         document.getElementById('content').innerHTML = `<p class="text-danger">Error: ${error.message}</p>`;
     }
@@ -269,18 +274,26 @@ function createTreeView(structure, container) {
         if (item.isDirectory) {
             li.className = 'folder';
             li.textContent = item.name;
-            li.addEventListener('click', () => {
+            li.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent click event from propagating to parent elements
                 li.classList.toggle('expanded');
-                if (!li.classList.contains('loaded')) {
-                    li.classList.add('loaded');
-                    createTreeView(item, li);
+                // Toggle visibility of child elements
+                const childUl = li.querySelector('ul');
+                if (childUl) {
+                    childUl.style.display = childUl.style.display === 'none' ? 'block' : 'none';
                 }
             });
+            if (item.children) {
+                const childUl = document.createElement('ul');
+                childUl.style.display = 'none';
+                createTreeView(item, childUl);
+                li.appendChild(childUl);
+            }
         } else {
             li.className = 'file';
             li.textContent = item.name;
             li.addEventListener('click', (e) => {
-                e.stopPropagation();
+                e.stopPropagation(); // Prevent click event from propagating to parent elements
                 loadFile(item.path);
             });
         }
@@ -324,6 +337,33 @@ function renderSearchResults(results) {
     searchResultsContainer.appendChild(ul);
 }
 
+// Hide Some blocs by default
+function HideBlocs()
+{
+    // Hide global buttons by default
+    document.querySelector('.global-buttons').style.display = 'none';
+    // document.querySelector('.cards-container').style.display = 'none';
+}
+
+// Show search bar and cards container on home page
+function showHomePage() {
+    document.querySelector('.search-bar').style.display = 'block';
+    document.getElementById('search-results').style.display = 'block';
+    document.getElementById('tree-view-container').style.display = 'block';
+    document.getElementById('content').style.display = 'none';
+    document.querySelector('.global-buttons').style.display = 'none';
+}
+
+// Method to clear search results when clicking outside
+function clearSearchResultsOnClickOutside() {
+    document.addEventListener('click', function(event) {
+        var searchResults = document.getElementById('search-results');
+        if (!searchResults.contains(event.target)) {
+            searchResults.innerHTML = '';
+        }
+    });
+}
+
 // Initialize the app
 (async () => {
     const structure = await fetchStructure();
@@ -332,9 +372,7 @@ function renderSearchResults(results) {
         hljs.highlightAll(); // Apply syntax highlighting
         addGlobalToggleButton(); // Add global toggle button
         addGlobalButtons(); // Add global view raw and download buttons
-
-        // Hide global buttons by default
-        document.querySelector('.global-buttons').style.display = 'none';
+        HideBlocs(); // Hide some blocs by default
 
         // Create tree view
         const treeViewContainer = document.getElementById('tree-view-container');
@@ -351,8 +389,13 @@ function renderSearchResults(results) {
         // Add event listener to the blog link to display cards
         document.querySelector('.navbar-brand').addEventListener('click', (e) => {
             e.preventDefault();
-            // Hide global buttons when displaying cards
-            document.querySelector('.global-buttons').style.display = 'none';
+            showHomePage();
         });
+
+        // Add event listener to clear search results on click outside
+        clearSearchResultsOnClickOutside();
+
+        // Show home page by default
+        showHomePage();
     }
 })();

@@ -19,8 +19,8 @@
 
 - It refers to a delegate that holds a reference to a single method.
 - Key Features:
-    - Holds reference to only one method at a time.
-    - If reassigned, the previous method reference is overwritten.
+  - Holds reference to only one method at a time.
+  - If reassigned, the previous method reference is overwritten.
 
 - Example:
 
