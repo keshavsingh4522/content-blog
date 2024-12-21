@@ -46,23 +46,50 @@ pre.collapsed::after {
 
 .tree-view {
     list-style-type: none;
-    padding-left: 1rem;
+    padding-left: 20px;
 }
 
 .tree-view li {
-    margin: 0.5rem 0;
+    position: relative;
+    padding-left: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 
-.tree-view .folder {
-    cursor: pointer;
-    font-weight: bold;
+.tree-view .folder::before,
+.tree-view .file::before {
+    margin-right: 8px;
 }
 
-.tree-view .file {
-    cursor: pointer;
-    color: #007bff;
+.tree-view .folder::before {
+    content: '\f07b'; /* Bootstrap folder icon */
+    font-family: 'Bootstrap Icons';
+    color: #f0ad4e; /* Orange color for folders */
+}
+
+.tree-view .file::before {
+    content: '\f15b'; /* Bootstrap file icon */
+    font-family: 'Bootstrap Icons';
+    color: #5bc0de; /* Blue color for files */
+}
+
+.tree-view .expanded::before {
+    content: '\f07c'; /* Bootstrap open folder icon */
 }
 
 .search-bar {
     margin-bottom: 1rem;
+}
+
+.search-bar,
+#cards-container,
+#search-results,
+#tree-view-container {
+    display: none;
+}
+
+div#search-results ul li:hover {
+    background-color: cadetblue;
+    cursor: pointer;
 }
