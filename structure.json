@@ -69,6 +69,11 @@
                     "path": "src/CSharp/csharp.md"
                 },
                 {
+                    "name": "Delegate",
+                    "isDirectory": false,
+                    "path": "src/CSharp/csharp-delegate.md"
+                },
+                {
                     "name": "EF",
                     "isDirectory": false,
                     "path": "src/CSharp/ef.md"
