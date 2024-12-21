@@ -1,130 +1,254 @@
 {
-    "name": "root",
-    "isDirectory": true,
-    "children": [
+  "name": "root",
+  "isDirectory": true,
+  "children": [
+    {
+      "name": "API",
+      "isDirectory": true,
+      "children": [
         {
-            "name": "API",
-            "isDirectory": false,
-            "path": "src/API/API.md"
-        },
-        {
-            "name": "AWS",
-            "isDirectory": true,
-            "children": [
-                {
-                    "name": "Api Gateway",
-                    "isDirectory": false,
-                    "path": "src/AWS/apiGateway.md"
-                },
-                {
-                    "name": "AWS",
-                    "isDirectory": false,
-                    "path": "src/AWS/aws.md"
-                },
-                {
-                    "name": "EC2",
-                    "isDirectory": false,
-                    "path": "src/AWS/ec2.md"
-                },
-                {
-                    "name": "Lambda",
-                    "isDirectory": false,
-                    "path": "src/AWS/lambda.md"
-                },
-                {
-                    "name": "VPC",
-                    "isDirectory": false,
-                    "path": "src/AWS/vpc.md"
-                }
-            ]
-        },
-        {
-            "name": "Azure",
-            "isDirectory": true,
-            "children": [
-                {
-                    "name": "App Service",
-                    "isDirectory": false,
-                    "path": "src/Azure/Certification/az-204/app-service.md"
-                },
-                {
-                    "name": "Function",
-                    "isDirectory": false,
-                    "path": "src/Azure/Certification/az-204/function.md"
-                },
-                {
-                    "name": "Power Automate",
-                    "isDirectory": false,
-                    "path": "src/Azure/power-automate.md"
-                }
-            ]
-        },
-        {
-            "name": "CSharp",
-            "isDirectory": true,
-            "children": [
-                {
-                    "name": "C#",
-                    "isDirectory": false,
-                    "path": "src/CSharp/csharp.md"
-                },
-                {
-                    "name": "Delegate",
-                    "isDirectory": false,
-                    "path": "src/CSharp/csharp-delegate.md"
-                },
-                {
-                    "name": "EF",
-                    "isDirectory": false,
-                    "path": "src/CSharp/ef.md"
-                },
-                {
-                    "name": "OOP",
-                    "isDirectory": false,
-                    "path": "src/CSharp/OOP.md"
-                },
-                {
-                    "name":"Security And Cryptography",
-                    "isDirectory":false,
-                    "path":"src/CSharp/security-and-cryptography.md"
-                },
-                {
-                    "name": "TIPS",
-                    "isDirectory": false,
-                    "path": "src/CSharp/tips.md"
-                },
-                {
-                    "name": "Dotnet",
-                    "isDirectory": true,
-                    "children": [
-                        {
-                            "name": "CLI",
-                            "isDirectory": false,
-                            "path": "src/CSharp/Dotnet/dotnet-cli.md"
-                        },
-                        {
-                            "name": "Nuget",
-                            "isDirectory": false,
-                            "path": "src/CSharp/Dotnet/dotnet-nuget.md"
-                        },
-                        {
-                            "name": "Sonar",
-                            "isDirectory": false,
-                            "path": "src/CSharp/Dotnet/dotnet-sonar.md"
-                        },
-                        {
-                            "name": "Dotnet",
-                            "isDirectory": false,
-                            "path": "src/CSharp/Dotnet/dotnet.md"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "name": "SQL",
-            "isDirectory": false,
-            "path": "src/SQL/sql.md"
+          "name": "API",
+          "isDirectory": false,
+          "path": "src/API/API.md"
         }
-    ]
+      ]
+    },
+    {
+      "name": "AWS",
+      "isDirectory": true,
+      "children": [
+        {
+          "name": "api Gateway",
+          "isDirectory": false,
+          "path": "src/AWS/apiGateway.md"
+        },
+        {
+          "name": "aws",
+          "isDirectory": false,
+          "path": "src/AWS/aws.md"
+        },
+        {
+          "name": "ec2",
+          "isDirectory": false,
+          "path": "src/AWS/ec2.md"
+        },
+        {
+          "name": "lambda",
+          "isDirectory": false,
+          "path": "src/AWS/lambda.md"
+        },
+        {
+          "name": "vpc",
+          "isDirectory": false,
+          "path": "src/AWS/vpc.md"
+        }
+      ]
+    },
+    {
+      "name": "Azure",
+      "isDirectory": true,
+      "children": [
+        {
+          "name": "Azure-Dev Ops",
+          "isDirectory": false,
+          "path": "src/Azure/Azure-DevOps.md"
+        },
+        {
+          "name": "Certification",
+          "isDirectory": true,
+          "children": [
+            {
+              "name": "AZ-204",
+              "isDirectory": false,
+              "path": "src/Azure/Certification/AZ-204.md"
+            },
+            {
+              "name": "az-204",
+              "isDirectory": true,
+              "children": [
+                {
+                  "name": "app-service",
+                  "isDirectory": false,
+                  "path": "src/Azure/Certification/az-204/app-service.md"
+                },
+                {
+                  "name": "function",
+                  "isDirectory": false,
+                  "path": "src/Azure/Certification/az-204/function.md"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "azure",
+          "isDirectory": false,
+          "path": "src/Azure/azure.md"
+        },
+        {
+          "name": "power-automate",
+          "isDirectory": false,
+          "path": "src/Azure/power-automate.md"
+        }
+      ]
+    },
+    {
+      "name": "CSharp",
+      "isDirectory": true,
+      "children": [
+        {
+          "name": "Dotnet",
+          "isDirectory": true,
+          "children": [
+            {
+              "name": "dotnet-cli",
+              "isDirectory": false,
+              "path": "src/CSharp/Dotnet/dotnet-cli.md"
+            },
+            {
+              "name": "dotnet-nuget",
+              "isDirectory": false,
+              "path": "src/CSharp/Dotnet/dotnet-nuget.md"
+            },
+            {
+              "name": "dotnet-sonar",
+              "isDirectory": false,
+              "path": "src/CSharp/Dotnet/dotnet-sonar.md"
+            },
+            {
+              "name": "dotnet",
+              "isDirectory": false,
+              "path": "src/CSharp/Dotnet/dotnet.md"
+            }
+          ]
+        },
+        {
+          "name": "Filters",
+          "isDirectory": true,
+          "children": [
+            {
+              "name": "Implementation",
+              "isDirectory": true,
+              "children": [
+                {
+                  "name": "filter.implementation",
+                  "isDirectory": false,
+                  "path": "src/CSharp/Filters/Implementation/filter.implementation.md"
+                }
+              ]
+            },
+            {
+              "name": "action.filter",
+              "isDirectory": false,
+              "path": "src/CSharp/Filters/action.filter.md"
+            },
+            {
+              "name": "authorization.filter",
+              "isDirectory": false,
+              "path": "src/CSharp/Filters/authorization.filter.md"
+            },
+            {
+              "name": "endpoint.f Ilter",
+              "isDirectory": false,
+              "path": "src/CSharp/Filters/endpoint.fIlter.md"
+            },
+            {
+              "name": "exception.filter",
+              "isDirectory": false,
+              "path": "src/CSharp/Filters/exception.filter.md"
+            },
+            {
+              "name": "filter",
+              "isDirectory": false,
+              "path": "src/CSharp/Filters/filter.md"
+            },
+            {
+              "name": "resource.filter",
+              "isDirectory": false,
+              "path": "src/CSharp/Filters/resource.filter.md"
+            },
+            {
+              "name": "result.filter",
+              "isDirectory": false,
+              "path": "src/CSharp/Filters/result.filter.md"
+            }
+          ]
+        },
+        {
+          "name": "OOP",
+          "isDirectory": false,
+          "path": "src/CSharp/OOP.md"
+        },
+        {
+          "name": "csharp-delegate",
+          "isDirectory": false,
+          "path": "src/CSharp/csharp-delegate.md"
+        },
+        {
+          "name": "csharp",
+          "isDirectory": false,
+          "path": "src/CSharp/csharp.md"
+        },
+        {
+          "name": "ef",
+          "isDirectory": false,
+          "path": "src/CSharp/ef.md"
+        },
+        {
+          "name": "security-and-cryptography",
+          "isDirectory": false,
+          "path": "src/CSharp/security-and-cryptography.md"
+        },
+        {
+          "name": "tips",
+          "isDirectory": false,
+          "path": "src/CSharp/tips.md"
+        }
+      ]
+    },
+    {
+      "name": "GOF",
+      "isDirectory": true,
+      "children": [
+        {
+          "name": "GOF",
+          "isDirectory": false,
+          "path": "src/GOF/GOF.md"
+        }
+      ]
+    },
+    {
+      "name": "Introduction",
+      "isDirectory": true,
+      "children": [
+        {
+          "name": "introduction",
+          "isDirectory": false,
+          "path": "src/Introduction/introduction.md"
+        }
+      ]
+    },
+    {
+      "name": "Networking",
+      "isDirectory": true,
+      "children": [
+        {
+          "name": "network",
+          "isDirectory": false,
+          "path": "src/Networking/network.md"
+        }
+      ]
+    },
+    {
+      "name": "SQL",
+      "isDirectory": true,
+      "children": [
+        {
+          "name": "sql",
+          "isDirectory": false,
+          "path": "src/SQL/sql.md"
+        }
+      ]
+    }
+  ]
 }

@@ -59,23 +59,23 @@ pre.collapsed::after {
 
 .tree-view .folder::before,
 .tree-view .file::before {
+    font-family: "Font Awesome 5 Free"; /* Correct Font Awesome family */
+    font-weight: 900; /* Required for solid icons */
     margin-right: 8px;
 }
 
 .tree-view .folder::before {
-    content: '\f07b'; /* Bootstrap folder icon */
-    font-family: 'Bootstrap Icons';
+    content: '\f07b'; /* Font Awesome folder icon */
     color: #f0ad4e; /* Orange color for folders */
 }
 
 .tree-view .file::before {
-    content: '\f15b'; /* Bootstrap file icon */
-    font-family: 'Bootstrap Icons';
+    content: '\f15b'; /* Font Awesome file icon */
     color: #5bc0de; /* Blue color for files */
 }
 
 .tree-view .expanded::before {
-    content: '\f07c'; /* Bootstrap open folder icon */
+    content: '\f07c'; /* Font Awesome open folder icon */
 }
 
 .search-bar {
