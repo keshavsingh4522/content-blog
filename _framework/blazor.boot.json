@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "OMKR.Services.ContentBlog.WebApp",
   "resources": {
-    "hash": "sha256-IBYH4+gev16rF9bGaW/0kwzbjaLG8i5UOb16djl8GqA=",
+    "hash": "sha256-ocWxTn6wwrBVBNKJExgMH7vUELF/WFKk+RntVKFTXn0=",
     "fingerprinting": {
       "Microsoft.AspNetCore.Components.651u3x4v4z.wasm": "Microsoft.AspNetCore.Components.wasm",
       "Microsoft.AspNetCore.Components.Web.7apenvi18o.wasm": "Microsoft.AspNetCore.Components.Web.wasm",
@@ -17,7 +17,7 @@
       "Microsoft.Extensions.Primitives.tcgeh3akx1.wasm": "Microsoft.Extensions.Primitives.wasm",
       "Microsoft.JSInterop.426305nhc4.wasm": "Microsoft.JSInterop.wasm",
       "Microsoft.JSInterop.WebAssembly.heoad7mujs.wasm": "Microsoft.JSInterop.WebAssembly.wasm",
-      "OMKR.Services.ContentBlog.WebApp.5ixnp6m6f1.wasm": "OMKR.Services.ContentBlog.WebApp.wasm",
+      "OMKR.Services.ContentBlog.WebApp.laj85jpd0f.wasm": "OMKR.Services.ContentBlog.WebApp.wasm",
       "System.Collections.Concurrent.g0ny4l55tq.wasm": "System.Collections.Concurrent.wasm",
       "System.Collections.Immutable.4p5o6w4a64.wasm": "System.Collections.Immutable.wasm",
       "System.Collections.ibren822qm.wasm": "System.Collections.wasm",
@@ -76,7 +76,7 @@
       "Microsoft.Extensions.Primitives.tcgeh3akx1.wasm": "sha256-TYdWPCwhKBdHQ79Fa7lunjzdUXfcxyaR1fAk0y11/ig=",
       "Microsoft.JSInterop.426305nhc4.wasm": "sha256-lNqP2ot1f2PhPr/5ZgFueuYFhUgz/pVAaqmi0u4H8Lo=",
       "Microsoft.JSInterop.WebAssembly.heoad7mujs.wasm": "sha256-99wG3VH14sWkwPaF5rX6YAcJvtAhDuqonwihvj2m5HA=",
-      "OMKR.Services.ContentBlog.WebApp.5ixnp6m6f1.wasm": "sha256-o4WK9LU/qITlc0OKYl4+gH7Oo+dLIUBEMO36IsVUdGs=",
+      "OMKR.Services.ContentBlog.WebApp.laj85jpd0f.wasm": "sha256-U8txeavsm/mkLOTjOKG1Qmafo8pyqdb57kauOtUuC9I=",
       "System.Collections.Concurrent.g0ny4l55tq.wasm": "sha256-ADGWx8rPfs5ftD/wCG/cFqw585w1zgvqniZJtb7Jc2Q=",
       "System.Collections.Immutable.4p5o6w4a64.wasm": "sha256-KMeffaq/Vtz03KZ0FBqktKzzgrNwJu04cl/UEYmIFuA=",
       "System.Collections.ibren822qm.wasm": "sha256-zrjZ8imFFBw5xpxyRwbbdiAyLjLGGPCYmO+oRDrtD7w=",
