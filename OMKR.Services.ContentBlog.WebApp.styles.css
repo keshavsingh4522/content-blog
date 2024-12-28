@@ -160,3 +160,81 @@ main[b-4h8jwaalyj] {
         overflow-y: auto;
     }
 }
+/* /Pages/MarkdownViewer.razor.rz.scp.css */
+
+body[b-0bpx13imze] {
+    overflow-x: visible;
+}
+
+/* Common styling for headings */
+h1[b-0bpx13imze], h2[b-0bpx13imze], h3[b-0bpx13imze], h4[b-0bpx13imze], h5[b-0bpx13imze], h6[b-0bpx13imze] {
+    font-family: 'Arial', sans-serif;
+    margin-top: 20px;
+    color: #2c3e50;
+}
+
+h1[b-0bpx13imze] {
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 5px;
+}
+
+/* Styling for code blocks */
+code[b-0bpx13imze] {
+    background-color: #f4f4f4;
+    color: #e74c3c;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+}
+
+/* Styling for preformatted code blocks */
+pre[b-0bpx13imze] {
+    background-color: #2d2d2d;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+    font-family: 'Courier New', monospace;
+}
+
+/* General Markdown styling */
+.markdown-body ul[b-0bpx13imze] {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+.markdown-body a[b-0bpx13imze] {
+    color: #3498db;
+    text-decoration: none;
+}
+
+    .markdown-body a:hover[b-0bpx13imze] {
+        text-decoration: underline;
+    }
+
+/* Table styling */
+table[b-0bpx13imze] {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 20px 0;
+}
+
+th[b-0bpx13imze], td[b-0bpx13imze] {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th[b-0bpx13imze] {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+tr:nth-child(even)[b-0bpx13imze] {
+    background-color: #f9f9f9;
+}
+
+tr:hover[b-0bpx13imze] {
+    background-color: #f1f1f1;
+}
