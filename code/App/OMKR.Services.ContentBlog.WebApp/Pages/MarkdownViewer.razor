@@ -1,0 +1,7 @@
+﻿@page "/markdown-viewer"
+@inject NavigationManager NavigationManager
+
+
+<div class="markdown-body bg-light p-3 rounded">
+    @((MarkupString)RenderedHtml)
+</div>

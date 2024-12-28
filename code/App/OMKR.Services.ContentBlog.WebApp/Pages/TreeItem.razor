@@ -1,0 +1,65 @@
+﻿@using System.IO
+@rendermode InteractiveServer
+
+<strong>📁 @Path.GetFileName(DirectoryName)</strong>
+
+@if (HasSubdirectories)
+{
+    <button @onclick="ToggleSubdirectories">Toggle</button>
+    @if (IsExpanded)
+    {
+        <ul>
+            @foreach (var dir in Subdirectories)
+            {
+                <TreeItem DirectoryName="@dir" />
+            }
+        </ul>
+    }
+}
+else
+{
+    <ul>
+        @foreach (var file in Files)
+        {
+            <button @onclick="() => CallParentMethod(file)" class="btn btn-link text-decoration-none">📝 @Path.GetFileName(file)</button>
+        }
+    </ul>
+}
+
+@code {
+    [Parameter]
+    public string? DirectoryName { get; set; }
+    private string[] Subdirectories { get; set; } = Array.Empty<string>();
+    private string[] Files { get; set; } = Array.Empty<string>();
+    private bool IsExpanded { get; set; } = false;
+
+    private bool HasSubdirectories => Subdirectories.Any();
+
+    [Parameter] public EventCallback<string> OnMethodCalled { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        // Load the subdirectories and files for this directory
+        LoadFolderContents(DirectoryName);
+    }
+
+    private void LoadFolderContents(string? path)
+    {
+        if (Directory.Exists(path))
+        {
+            Subdirectories = Directory.GetDirectories(path);
+            Files = Directory.GetFiles(path, "*.md"); // Only include .md files
+        }
+    }
+
+    private void ToggleSubdirectories()
+    {
+        IsExpanded = !IsExpanded;
+    }
+
+    private async Task CallParentMethod(string filePath)
+    {
+        // Call the parent method with an argument
+        await OnMethodCalled.InvokeAsync(filePath);
+    }
+}
