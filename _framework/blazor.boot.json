@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "OMKR.Services.ContentBlog.WebApp",
   "resources": {
-    "hash": "sha256-3gC/q0aDvAxwm+k0mBMvNjIbYW0Q1KavBitIjEK9nOs=",
+    "hash": "sha256-RtddOFeDDbyVG/YetemHh2t7i4XUxW5eFBI7YDAEVjE=",
     "fingerprinting": {
       "Markdig.y4i0b9whld.wasm": "Markdig.wasm",
       "Microsoft.AspNetCore.Components.jcm7gfnxv0.wasm": "Microsoft.AspNetCore.Components.wasm",
@@ -20,7 +20,7 @@
       "Microsoft.Extensions.Primitives.3wad85h4t3.wasm": "Microsoft.Extensions.Primitives.wasm",
       "Microsoft.JSInterop.426305nhc4.wasm": "Microsoft.JSInterop.wasm",
       "Microsoft.JSInterop.WebAssembly.heoad7mujs.wasm": "Microsoft.JSInterop.WebAssembly.wasm",
-      "OMKR.Services.ContentBlog.WebApp.rw2udw3riq.wasm": "OMKR.Services.ContentBlog.WebApp.wasm",
+      "OMKR.Services.ContentBlog.WebApp.kxt7v9qa3g.wasm": "OMKR.Services.ContentBlog.WebApp.wasm",
       "System.Collections.Concurrent.z6mnwolthj.wasm": "System.Collections.Concurrent.wasm",
       "System.Collections.Immutable.chlbikffaa.wasm": "System.Collections.Immutable.wasm",
       "System.Collections.bfeprzde9g.wasm": "System.Collections.wasm",
@@ -85,7 +85,7 @@
       "Microsoft.Extensions.Primitives.3wad85h4t3.wasm": "sha256-Y8RNBGybINJh/PYkqAcpgNHjMaRVT6nO6kyJ6f/5aGQ=",
       "Microsoft.JSInterop.426305nhc4.wasm": "sha256-lNqP2ot1f2PhPr/5ZgFueuYFhUgz/pVAaqmi0u4H8Lo=",
       "Microsoft.JSInterop.WebAssembly.heoad7mujs.wasm": "sha256-99wG3VH14sWkwPaF5rX6YAcJvtAhDuqonwihvj2m5HA=",
-      "OMKR.Services.ContentBlog.WebApp.rw2udw3riq.wasm": "sha256-OwePHlQf+mVpqUT1rm51V+2ZTGRwdIt4wBLYI2zvENs=",
+      "OMKR.Services.ContentBlog.WebApp.kxt7v9qa3g.wasm": "sha256-SPaoawcvNXQ+XEUTca3+6BIDTu6e+DexxhuIOwFDbJ4=",
       "System.Collections.Concurrent.z6mnwolthj.wasm": "sha256-5R9VZm4vwen3sw0dkAwezi2gX0RES6nVTmViIaobmgI=",
       "System.Collections.Immutable.chlbikffaa.wasm": "sha256-gBNEkTslmx0UB/hHYh39tC+H1oTs2xoQ+HZho1rzccM=",
       "System.Collections.bfeprzde9g.wasm": "sha256-uTPBGEZ4k1/43GvCu1KVXAqiN5Hf5SSys7lU5j97Des=",
