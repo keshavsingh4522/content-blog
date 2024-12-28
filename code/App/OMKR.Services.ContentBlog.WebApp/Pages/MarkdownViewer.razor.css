@@ -1,0 +1,77 @@
+﻿
+body {
+    overflow-x: visible;
+}
+
+/* Common styling for headings */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Arial', sans-serif;
+    margin-top: 20px;
+    color: #2c3e50;
+}
+
+h1 {
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 5px;
+}
+
+/* Styling for code blocks */
+code {
+    background-color: #f4f4f4;
+    color: #e74c3c;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+}
+
+/* Styling for preformatted code blocks */
+pre {
+    background-color: #2d2d2d;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+    font-family: 'Courier New', monospace;
+}
+
+/* General Markdown styling */
+.markdown-body ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+.markdown-body a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+    .markdown-body a:hover {
+        text-decoration: underline;
+    }
+
+/* Table styling */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 20px 0;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}

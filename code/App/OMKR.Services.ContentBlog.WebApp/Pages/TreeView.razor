@@ -1,0 +1,62 @@
+﻿@page "/content-blogs"
+@using System.IO
+@using System.Linq
+
+
+<h3 class="unprintable">File System Tree View</h3>
+
+<div class="container-fluid">
+    <!-- Search Bar -->
+    <div class="row my-3 unprintable">
+        <div class="col-md-6">
+            <input type="text"
+                   class="form-control"
+                   placeholder="Search files..."
+                   @bind="SearchTerm"
+                   @bind:event="oninput" />
+        </div>
+    </div>
+
+    <!-- Display Files and Directories -->
+    <div class="row unprintable">
+        <div class="col-md-12">
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <p class="text-danger">@errorMessage</p>
+            }
+            else if (filteredFiles.Any() || filteredDirectories.Any())
+            {
+                <ul class="list-group">
+                    @foreach (var dir in filteredDirectories)
+                    {
+                        <li class="list-group-item">
+                            <TreeItem DirectoryName="@dir" OnMethodCalled="LoadSelectedFile" />
+                        </li>
+                    }
+
+                    @foreach (var file in filteredFiles)
+                    {
+                        <li class="list-group-item">
+                            <button class="btn btn-link text-decoration-none"
+                                    @onclick="() => LoadSelectedFile(file)">
+                                📝 @Path.GetFileName(file)
+                            </button>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+    </div>
+    <div class="row unprintable col-md-1">
+        <button class="btn btn-light" onclick="window.print()">Print</button>
+    </div>
+    <!-- File Viewer -->
+    @if (!string.IsNullOrWhiteSpace(SelectedFileName))
+    {
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <MarkdownViewer SelectedFile="@SelectedFileName" />
+            </div>
+        </div>
+    }
+</div>
