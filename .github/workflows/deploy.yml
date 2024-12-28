@@ -18,7 +18,7 @@ jobs:
           dotnet-version: 9.0.x  # Adjust to your .NET version
 
       - name: Publish Blazor WebAssembly app
-        run: dotnet publish code/App/OMKR.Services.ContentBlog.WebApp -c Release -o output -p:StaticWebAssets.BasePath=/content-blog/
+        run: dotnet publish code/App/OMKR.Services.ContentBlog.WebApp -c Release -o output
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
