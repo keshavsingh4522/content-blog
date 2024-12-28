@@ -1,6 +1,8 @@
 ﻿using Markdig;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Primitives;
+using System.Net.Http;
 
 namespace OMKR.Services.ContentBlog.WebApp.Pages;
 
