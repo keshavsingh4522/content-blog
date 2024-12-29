@@ -35,5 +35,4 @@ public class PrivateConstructor
         name = a;
         location = b;
     }
-
 }
