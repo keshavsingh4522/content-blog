@@ -1,4 +1,4 @@
-﻿# C_Sharp
+# C_Sharp
 
 1. [CSharp](#csharp)
 2. [Operator](#operator)

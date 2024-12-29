@@ -1,4 +1,4 @@
-﻿@page "/markdown-viewer"
+﻿@* @page "/markdown-viewer"
 @using System.Net.Http
 @inject IHttpClientFactory HttpClientFactory
 @inject NavigationManager NavigationManager
@@ -6,4 +6,4 @@
 
 <div class="markdown-body bg-light p-3 rounded">
     @((MarkupString)RenderedHtml)
-</div>
+</div> *@
