@@ -4,23 +4,26 @@
 @using OMKR.Services.ContentBlog.WebApp.Data
 @inject HttpClient HttpClient
 
-<h3 class="unprintable">File System Tree View</h3>
-
-<p>x is @x</p>
-
-@code{
-    private int x = 45;
-    private FileNode? RootNode = new();
-
-    protected override async Task OnInitializedAsync()
-    {
-        x = 98;
-        var rootNode = await HttpClient.GetFromJsonAsync<FileNode>("structure.json");
-        if (rootNode != null)
+@if (Nodes != null)
+{
+    <ul>
+        @foreach (var node in Nodes)
         {
-            RootNode = rootNode;
+            <li>
+                @if (node.IsDirectory)
+                {
+                    <details>
+                        <summary>@node.Name</summary>
+                        <TreeView Nodes="node.Children.ToList()" OnFileSelected="OnFileSelected" />
+                    </details>
+                }
+                else
+                {
+                    <button @onclick="() => OnFileSelected.InvokeAsync(node.Path)">
+                        @node.Name
+                    </button>
+                }
+            </li>
         }
-
-        Console.WriteLine(rootNode.Name);
-    }
+    </ul>
 }

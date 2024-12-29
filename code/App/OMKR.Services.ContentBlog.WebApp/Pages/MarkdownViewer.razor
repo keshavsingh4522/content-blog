@@ -1,9 +1,38 @@
-﻿@* @page "/markdown-viewer"
-@using System.Net.Http
-@inject IHttpClientFactory HttpClientFactory
-@inject NavigationManager NavigationManager
+﻿@page "/markdownviewer"
+@page "/markdownviewer/{filePath}"
+@using Markdig
 
+@inject HttpClient Http
+@inject NavigationManager Navigation
 
-<div class="markdown-body bg-light p-3 rounded">
-    @((MarkupString)RenderedHtml)
-</div> *@
+<h3>File Explorer</h3>
+
+<div>
+    <input type="text" @bind="SearchTerm" placeholder="Search files..." class="search-input" />
+</div>
+
+<div class="file-explorer">
+    @if (Root != null)
+    {
+        <TreeView Nodes="FilteredNodes" OnFileSelected="NavigateToFile" />
+    }
+    else
+    {
+        <p>Loading structure...</p>
+    }
+</div>
+
+<h3>Markdown Viewer</h3>
+
+<div class="markdown-viewer">
+    @if (!string.IsNullOrEmpty(Content))
+    {
+        <div class="markdown-body">
+            @((MarkupString)Markdown.ToHtml(Content))
+        </div>
+    }
+    else
+    {
+        <p>Select a file to view its content.</p>
+    }
+</div>

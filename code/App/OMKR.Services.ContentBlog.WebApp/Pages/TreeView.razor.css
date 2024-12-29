@@ -1,0 +1,17 @@
+﻿.file-explorer {
+    width: 30%;
+    float: left;
+    padding: 1em;
+    border-right: 1px solid #ddd;
+}
+
+.markdown-viewer {
+    width: 70%;
+    float: left;
+    padding: 1em;
+}
+
+.markdown-body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}

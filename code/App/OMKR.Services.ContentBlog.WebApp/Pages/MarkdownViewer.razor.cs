@@ -1,69 +1,98 @@
-﻿//using Markdig;
-//using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
+using OMKR.Services.ContentBlog.WebApp.Data;
 
-//namespace OMKR.Services.ContentBlog.WebApp.Pages;
+namespace OMKR.Services.ContentBlog.WebApp.Pages;
 
-//public partial class MarkdownViewer : ComponentBase
-//{
-//    [Parameter]
-//    public string? SelectedFile { get; set; }
-//    private string RenderedHtml = string.Empty;
+public partial class MarkdownViewer : ComponentBase
+{
+    [Parameter]
+    public string? FilePath { get; set; }
 
-//    protected override async Task OnInitializedAsync()
-//    {
-//        try
-//        {
-//            // Fetch fil path from query string
-//            var uri = new Uri(NavigationManager.Uri);
-//            var query = QueryHelpers.ParseQuery(uri.Query);
-//            if (query.TryGetValue("file", out Microsoft.Extensions.Primitives.StringValues value))
-//            {
-//                SelectedFile = value;
-//            }
+    private FileNode? Root { get; set; }
+    private string Content { get; set; } = string.Empty;
+    private string SearchTerm { get; set; } = string.Empty;
 
-//            // Fetch file from naviationManager
-//            await LoadMarkdown(SelectedFile);
+    protected override async Task OnInitializedAsync()
+    {
+        // Load structure.json
+        try
+        {
+            var json = await Http.GetStringAsync("structure.json");
+            Root = System.Text.Json.JsonSerializer.Deserialize<FileNode>(json);
 
-//            // Notify the UI that the component has finished loading
-//            StateHasChanged();
-//        }
-//        catch (Exception ex)
-//        {
-//            RenderedHtml = $"<p>Error loading files: {ex.Message}</p>";
-//        }
-//    }
+            // If a filePath is specified, load the corresponding file
+            if (!string.IsNullOrEmpty(FilePath))
+            {
+                await LoadMarkdownFile(FilePath);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Error loading structure.json: {ex.Message}");
+        }
+    }
 
-//    protected override async Task OnParametersSetAsync()
-//    {
-//        // Logic to reload or fetch the new file when SelectedFile changes
-//        if (!string.IsNullOrEmpty(SelectedFile))
-//        {
-//            // Assuming you have a method to load the file content
-//            await LoadMarkdown(SelectedFile);
-//            StateHasChanged(); // Ensure the component is re-rendered
-//        }
-//    }
+    private async Task LoadMarkdownFile(string filePath)
+    {
+        try
+        {
+            Content = await Http.GetStringAsync(filePath);
+        }
+        catch (Exception ex)
+        {
+            Content = $"Error loading file: {ex.Message}";
+        }
+    }
 
-//    private async Task LoadMarkdown(string? fileName)
-//    {
-//        try
-//        {
-//            var httpClient = HttpClientFactory.CreateClient("markdown");
+    private void NavigateToFile(string filePath)
+    {
+        Navigation.NavigateTo($"/markdownviewer/{Uri.EscapeDataString(filePath)}");
+    }
 
-//            // Fetch the selected Markdown file
-//            var markdownContent = await httpClient.GetStringAsync($"{NavigationManager.BaseUri}files\\{fileName}");
+    private List<FileNode>? FilteredNodes
+    {
+        get
+        {
+            if (string.IsNullOrWhiteSpace(SearchTerm))
+            {
+                return Root?.Children.ToList();
+            }
+            else
+            {
+                return FilterNodes(Root?.Children.ToList() ?? []);
+            }
+        }
+    }
 
-//            // Configure the pipeline for Markdown processing
-//            var pipeline = new Markdig.MarkdownPipelineBuilder()
-//                .UseAdvancedExtensions() // Enable tables and other extensions
-//                .Build();
+    private List<FileNode> FilterNodes(List<FileNode> nodes)
+    {
+        var result = new List<FileNode>();
 
-//            // Convert Markdown to HTML
-//            RenderedHtml = Markdig.Markdown.ToHtml(markdownContent, pipeline);
-//        }
-//        catch (Exception ex)
-//        {
-//            RenderedHtml = $"<p>Error loading Markdown file '{fileName}': {ex.Message}</p>";
-//        }
-//    }
-//}
+        foreach (var node in nodes)
+        {
+            if (node.IsDirectory)
+            {
+                var filteredChildren = FilterNodes(node.Children.ToList() ?? []);
+                if (filteredChildren.Count != 0 || node.Name.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase))
+                {
+                    result.Add(new FileNode
+                    {
+                        Name = node.Name,
+                        IsDirectory = node.IsDirectory,
+                        Path = node.Path,
+                        Children = [.. filteredChildren]
+                    });
+                }
+            }
+            else
+            {
+                if (node.Name.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase))
+                {
+                    result.Add(node);
+                }
+            }
+        }
+
+        return result;
+    }
+}
