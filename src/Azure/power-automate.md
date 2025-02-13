@@ -5,7 +5,7 @@
 ## Features
 
 - Easy to use
-- No code
+- Low Code/No code
 - Comprehensive
 - Scalable
 
