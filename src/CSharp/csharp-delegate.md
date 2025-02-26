@@ -210,7 +210,57 @@ Console.WriteLine($"Is 4 even? {isEven(4)}");
 Console.WriteLine($"Is 5 even? {isEven(5)}");
 ```
 
+### Lambda Expression
+
+- The two types of lambda expressions are:
+    - Expression Lambda
+    - Statement Lambda
+
+1. **`Expression Lambda`**: Expression lambda contains a single expression in the lambda body. For example,
+
+```c#
+(int num) => num * 5;
+```
+
+2. **`Statement Lambda`**: Statement lambda encloses one or more statements in the lambda body. We use curly braces `{}` to wrap the statements. For example,
+
+```c#
+(int a, int b) =>
+{
+    var sum = a + b;
+    return sum;
+};
+```
+
+#### Lambda Expression with Delegate 
+
+```c#
+using System;
+class Program
+{
+    static void Main()
+    {
+        // using lambda expression with delegate type 
+        // take an int input, multiply it with 3 and return the result 
+        Func<int, int> multiply = num => num * 3;
+
+
+        // calls multiply() by passing 5 as an input
+        Console.WriteLine(multiply(5));
+    }
+}
+```
+
 ## Covariance and Contravariance in C#
+
+### Covariance
+
+- Covariance enables you to pass a derived type where a base type is expected.
+- Co-variance is like variance of the same kind. 
+- The base class and other derived classes are considered to be the same kind of class that adds extra functionalities to the base type. 
+- So covariance allows you to use a derived class where a base class is expected (**rule**: _`can accept big if small is expected`_).
+
+Covariance can be applied on delegate, generic, array, interface, etc.
 
 ```c#
 public class Small
@@ -231,8 +281,116 @@ public class Bigger : Big
 
 > As you can see above, a base class can hold a derived class but a derived class cannot hold a base class. In other word, an instance can accept big even if it demands small, but it cannot accept small if it demands big.
 
+#### Covariance with Delegate
 
-- [https://www.tutorialsteacher.com/csharp/csharp-covariance-and-contravariance](https://www.tutorialsteacher.com/csharp/csharp-covariance-and-contravariance)
+```c#
+public delegate Small covarDel(Big mc);
+
+public class Program
+{
+    public static Big Method1(Big bg)
+    {
+        Console.WriteLine("Method1");
+    
+        return new Big();
+    }
+    public static Small Method2(Big bg)
+    {
+        Console.WriteLine("Method2");
+    
+        return new Small();
+    }
+        
+    public static void Main(string[] args)
+    {
+        covarDel del = Method1;
+
+        Small sm1 = del(new Big());
+
+        del= Method2;
+        Small sm2 = del(new Big());
+    }
+}
+
+/*
+Output:
+Method1
+Method2
+*/
+```
+
+- As you can see in the above example, delegate expects a return type of small (base class) but we can still assign Method1 that returns Big (derived class) and also Method2 that has same signature as delegate expects.
+
+- Thus, covariance allows you to assign a method to the delegate that has a less derived return type.
+
+### Contravariance
+
+- Contravariance is applied to parameters. 
+- Contravariance allows a method with the parameter of a base class to be assigned to a delegate that expects the parameter of a derived class.
+
+```c#
+delegate Small covarDel(Big mc);
+
+class Program
+{
+    static Big Method1(Big bg)
+    {
+        Console.WriteLine("Method1");
+        return new Big();
+    }
+    static Small Method2(Big bg)
+    {
+        Console.WriteLine("Method2");
+        return new Small();
+    }
+
+    static Small Method3(Small sml)
+    {
+        Console.WriteLine("Method3");
+        
+        return new Small();
+    }
+    static void Main(string[] args)
+    {
+        covarDel del = Method1;
+        del += Method2;
+        del += Method3;
+
+        Small sm = del(new Big());
+}
+
+/*
+Output:
+Method1
+Method2
+Method3
+*/
+```
+
+###  Covariance and Contravariance Example
+
+```c#
+delegate Small covarDel(Big mc);
+
+class Program
+{
+
+    static Big Method4(Small sml)
+    {
+        Console.WriteLine("Method3");
+    
+        return new Big();
+    }
+
+    static void Main(string[] args)
+    {
+        covarDel del = Method4;
+    
+        Small sm = del(new Big());
+    }
+}
+
+```
 
 ## References
 
@@ -241,3 +399,4 @@ public class Bigger : Big
 - 	https://www.tutlane.com/tutorial/csharp/csharp-delegates
 - 	https://www.programiz.com/csharp-programming/delegates
 - 	https://www.programiz.com/csharp-programming/lambda-expression
+- [https://www.tutorialsteacher.com/csharp/csharp-covariance-and-contravariance](https://www.tutorialsteacher.com/csharp/csharp-covariance-and-contravariance)
