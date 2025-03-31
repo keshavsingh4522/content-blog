@@ -46,6 +46,6 @@ Microsoft documentation for Power Pages can be located [here](https://learn.micr
 - Microsoft Copilot Studio
     - [Microsoft Copilot Studio](https://www.microsoft.com/microsoft-copilot/microsoft-copilot-studio)
 
-## Refrence
+## Reference
 
 - [https://learn.microsoft.com/en-us/training/modules/introduction-power-platform/13-summary-resources](https://learn.microsoft.com/en-us/training/modules/introduction-power-platform/13-summary-resources)
