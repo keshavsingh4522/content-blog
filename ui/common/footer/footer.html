@@ -1,23 +1,30 @@
-<footer class="bg-dark-gradient footer">
+<footer class="bg-dark-gradient footer mt-5">
     <div class="footer-top">
         <div class="container">
-            <div class="footer-border-bottom pb-6 mb-5">
-                <div class="row">
-                    <div class="col-lg-4 col-xl-3">
-                        <h4 class="text-white">
-                            Sign up to Get Latest Updates
+            <div class="footer-border-bottom pb-4 mb-4">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 col-xl-3 mb-3 mb-lg-0">
+                        <h4 class="text-white mb-2">
+                            <i class="fas fa-bell me-2"></i>Stay Updated
                         </h4>
+                        <p class="text-white-75 mb-0">Get the latest programming tutorials and tech insights.</p>
                     </div>
-                    <div class="col-lg-4 col-xl-6">
-                        <form class="d-flex flex-row mb-2 p-1 bg-white input-group">
-                            <input type="email" class="form-control rounded-0 border-0" placeholder="you@yoursite.com">
-                            <button class="btn btn-secondary rounded-0 flex-shrink-0" type="submit">Subscribe</button>
+                    <div class="col-lg-4 col-xl-6 mb-3 mb-lg-0">
+                        <form class="d-flex p-1 bg-white input-group rounded-pill overflow-hidden">
+                            <input type="email" class="form-control border-0 rounded-0" placeholder="Enter your email address" aria-label="Email address for newsletter subscription">
+                            <button class="btn btn-primary rounded-0 flex-shrink-0 px-4" type="submit" aria-label="Subscribe to newsletter">
+                                <i class="fas fa-paper-plane me-2"></i>Subscribe
+                            </button>
                         </form>
                     </div>
                     <div class="col-lg-4 col-xl-3">
                         <div class="text-lg-end text-white">
-                            <span class="h6">Call Us On</span><br>
-                            <span class="h3">9982761929</span>
+                            <span class="h6 d-block mb-1">
+                                <i class="fas fa-envelope me-2"></i>Contact Me
+                            </span>
+                            <a href="mailto:keshavsingh4522@gmail.com" class="h5 text-white text-decoration-none">
+                                keshavsingh4522@gmail.com
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -25,103 +32,109 @@
             <div class="row">
                 <div class="col-sm-6 col-lg-3 my-4">
                     <div class="mb-4">
-                        <img src="static/img/logo-light.svg" title="" alt="">
+                        <h4 class="text-white fw-bold">
+                            <i class="fas fa-code me-2"></i>Content Blog
+                        </h4>
                     </div>
-                    <div class="text-white-65 mb-4 text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</div>
-                    <div class="nav footer-socila-icon">
-                        <a href="https://www.facebook.com/keshavsingh4522/">
-<i class="fab fa-facebook-f"></i>
-</a>
-                        <a href="https://x.com/Keshavsingh4522">
-<i class="fab fa-x"></i>
-</a>
-                        <a href="https://www.instagram.com/keshavsingh3197/">
-<i class="fab fa-instagram"></i>
-</a>
-                        <a href="https://www.linkedin.com/in/keshavsingh4522/">
-<i class="fab fa-linkedin-in"></i>
-</a>
+                    <div class="text-white-65 mb-4">
+                        Comprehensive programming tutorials covering C#, Azure, AWS, Docker, Kubernetes, and modern development practices.
+                    </div>
+                    <div class="nav footer-social-icons">
+                        <a href="https://www.facebook.com/keshavsingh4522/" target="_blank" rel="noopener" aria-label="Follow on Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://x.com/Keshavsingh4522" target="_blank" rel="noopener" aria-label="Follow on X (Twitter)">
+                            <i class="fab fa-x-twitter"></i>
+                        </a>
+                        <a href="https://www.instagram.com/keshavsingh3197/" target="_blank" rel="noopener" aria-label="Follow on Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/keshavsingh4522/" target="_blank" rel="noopener" aria-label="Connect on LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://github.com/keshavsingh4522" target="_blank" rel="noopener" aria-label="View GitHub profile">
+                            <i class="fab fa-github"></i>
+                        </a>
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-2 my-4">
-                    <h5 class="text-white h6 mb-4">Customer</h5>
+                    <h5 class="text-white h6 mb-4">
+                        <i class="fas fa-book me-2"></i>Learn
+                    </h5>
                     <ul class="list-unstyled white-link footer-links">
-                        <li>
-                            <a href="#">Get Corpo</a>
-                        </li>
-                        <li>
-                            <a href="#">Documentation</a>
-                        </li>
-                        <li>
-                            <a href="#">Help center</a>
-                        </li>
-                        <li>
-                            <a href="#">Pricing</a>
-                        </li>
-                        <li>
-                            <a href="#">Contact us</a>
-                        </li>
+                        <li><a href="#" onclick="loadCategoryFiles('CSharp')">C# Programming</a></li>
+                        <li><a href="#" onclick="loadCategoryFiles('Azure')">Azure Cloud</a></li>
+                        <li><a href="#" onclick="loadCategoryFiles('AWS')">AWS Services</a></li>
+                        <li><a href="#" onclick="loadCategoryFiles('Containerization')">Docker & K8s</a></li>
+                        <li><a href="#" onclick="loadCategoryFiles('SQL')">SQL Database</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-6 col-lg-2 my-4">
-                    <h5 class="text-white h6 mb-4">Product</h5>
+                    <h5 class="text-white h6 mb-4">
+                        <i class="fas fa-tools me-2"></i>Tools & Technologies
+                    </h5>
                     <ul class="list-unstyled white-link footer-links">
-                        <li>
-                            <a href="https://www.keshavsingh.net">Portfolio</a>
-                        </li>
-                        <li>
-                            <a href="#">Blog</a>
-                        </li>
-                        <li>
-                            <a href="#">Join our team</a>
-                        </li>
-                        <li>
-                            <a href="#">Elements</a>
-                        </li>
-                        <li>
-                            <a href="#">Products</a>
-                        </li>
+                        <li><a href="#" onclick="loadCategoryFiles('GOF')">Design Patterns</a></li>
+                        <li><a href="#" onclick="loadCategoryFiles('Networking')">Networking</a></li>
+                        <li><a href="#" onclick="loadCategoryFiles('Extensions')">VS Code Extensions</a></li>
+                        <li><a href="https://www.keshavsingh.net" target="_blank" rel="noopener">Portfolio</a></li>
+                        <li><a href="https://github.com/keshavsingh4522/content-blog" target="_blank" rel="noopener">Source Code</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-6 col-lg-2 my-4">
-                    <h5 class="text-white h6 mb-4">Company</h5>
+                    <h5 class="text-white h6 mb-4">
+                        <i class="fas fa-info-circle me-2"></i>About
+                    </h5>
                     <ul class="list-unstyled white-link footer-links">
-                        <li>
-                            <a href="#">About</a>
-                        </li>
-                        <li>
-                            <a href="#">Careers</a>
-                        </li>
-                        <li>
-                            <a href="#">Legal &amp; Security</a>
-                        </li>
-                        <li>
-                            <a href="#">Terms of use</a>
-                        </li>
-                        <li>
-                            <a href="#">We're hiring!</a>
-                        </li>
+                        <li><a href="https://www.keshavsingh.net/about" target="_blank" rel="noopener">About Me</a></li>
+                        <li><a href="mailto:keshavsingh4522@gmail.com">Contact</a></li>
+                        <li><a href="#" onclick="showPrivacyPolicy()">Privacy Policy</a></li>
+                        <li><a href="#" onclick="showTermsOfService()">Terms of Service</a></li>
+                        <li><a href="https://github.com/keshavsingh4522/content-blog/issues" target="_blank" rel="noopener">Report Issue</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-6 col-lg-3 my-4">
-                    <h5 class="text-white h6 mb-4">Company</h5>
+                    <h5 class="text-white h6 mb-4">
+                        <i class="fas fa-newspaper me-2"></i>Latest Articles
+                    </h5>
                     <div class="white-link">
                         <div class="d-flex pb-3">
-                            <div class="avatar avatar-lg rounded">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" title="" alt="">
+                            <div class="avatar avatar-sm rounded bg-primary d-flex align-items-center justify-content-center">
+                                <i class="fas fa-code text-white"></i>
                             </div>
                             <div class="col ps-3">
-                                <small class="text-white-65">29 March 2021</small>
-                                <h6 class="font-w-500 h6 m-0"><a class="text-white" href="#">Markdown Language Sample Blog Post Styling</a></h6>
+                                <small class="text-white-65">Programming</small>
+                                <h6 class="font-w-500 h6 m-0">
+                                    <a class="text-white text-decoration-none" href="#" onclick="loadFile('src/CSharp/csharp.md')">
+                                        C# Programming Guide
+                                    </a>
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="d-flex pb-3">
+                            <div class="avatar avatar-sm rounded bg-info d-flex align-items-center justify-content-center">
+                                <i class="fas fa-cloud text-white"></i>
+                            </div>
+                            <div class="col ps-3">
+                                <small class="text-white-65">Cloud Computing</small>
+                                <h6 class="font-w-500 h6 m-0">
+                                    <a class="text-white text-decoration-none" href="#" onclick="loadFile('src/Azure/azure.md')">
+                                        Azure Cloud Services
+                                    </a>
+                                </h6>
                             </div>
                         </div>
                         <div class="d-flex">
-                            <div class="avatar avatar-lg rounded">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar2.png" title="" alt="">
+                            <div class="avatar avatar-sm rounded bg-success d-flex align-items-center justify-content-center">
+                                <i class="fas fa-docker text-white"></i>
                             </div>
                             <div class="col ps-3">
-                                <small class="text-white-65">29 March 2021</small>
-                                <h6 class="font-w-500 h6 m-0"><a class="text-white" href="#">Markdown Language Sample Blog Post Styling</a></h6>
+                                <small class="text-white-65">Containerization</small>
+                                <h6 class="font-w-500 h6 m-0">
+                                    <a class="text-white text-decoration-none" href="#" onclick="loadFile('src/Containerization/Docker/docker.md')">
+                                        Docker Containerization
+                                    </a>
+                                </h6>
                             </div>
                         </div>
                     </div>
@@ -129,9 +142,23 @@
             </div>
         </div>
     </div>
-    <div class="footer-bottom footer-border-top light py-3">
-        <div class="container text-center">
-            <p class="m-0">© 2024 copyright <a href="#" class="text-reset text-white">keshavsingh.net</a></p>
+    <div class="footer-bottom footer-border-top light py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0 text-white-65">
+                        © 2024 <a href="https://www.keshavsingh.net" class="text-white text-decoration-none fw-medium">Keshav Singh</a>
+                        . All rights reserved.
+                    </p>
+                </div>
+                <div class="col-md-6 text-center text-md-end mt-2 mt-md-0">
+                    <small class="text-white-65">
+                        Built with <i class="fas fa-heart text-danger"></i> using 
+                        <a href="https://getbootstrap.com" target="_blank" rel="noopener" class="text-white text-decoration-none">Bootstrap</a> &
+                        <a href="https://highlightjs.org" target="_blank" rel="noopener" class="text-white text-decoration-none">Highlight.js</a>
+                    </small>
+                </div>
+            </div>
         </div>
     </div>
 </footer>
